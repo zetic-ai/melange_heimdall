@@ -2,6 +2,8 @@
 
 # Melange Heimdall
 
+<img src="assets/heimdall-overview.png" alt="Melange Heimdall Architecture" width="800">
+
 **On-device guardian for LLM API calls: safety, privacy, and cost optimization that never leaves the phone.**
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
@@ -18,11 +20,11 @@
 | | What | Link |
 |---|---|---|
 | **Concept** | Why on-device? The Heimdall metaphor and design rationale | [The Idea](#the-idea) · [Why On-Device Matters](#why-on-device-matters) |
+| **Benchmarks** | 44% avg token reduction, annual savings by LLM engine | [Cost Benchmarks](#cost-benchmarks) |
+| **Before & After** | Side-by-side: what the LLM sees with vs. without Heimdall | [What It Looks Like in Practice](#what-it-looks-like-in-practice) |
 | **Architecture** | Pipeline pattern, parallel init, protocol-oriented stages | [Architecture](#architecture) |
 | **How Each Stage Works** | PromptGuard, TextAnonymizer, Summarizer internals and key decisions | [Implementation Details](#implementation-details) |
-| **Before & After** | Side-by-side: what the LLM sees with vs. without Heimdall | [What It Looks Like in Practice](#what-it-looks-like-in-practice) |
 | **Code** | Drop-in integration for Android (Kotlin) and iOS (Swift) | [Quickstart](#quickstart) · [Custom Pipeline Stages](#custom-pipeline-stages) |
-| **Benchmarks** | 44% avg token reduction, annual savings by LLM engine | [Cost Benchmarks](#cost-benchmarks) |
 | **Project Layout** | Where everything lives in the repo | [Project Structure](#project-structure) |
 | **Run the Demos** | Get a Melange key, set up, build | [Getting Started](#getting-started) |
 
@@ -62,6 +64,35 @@ Upstream LLM  (OpenAI / Gemini / Claude / any)
     ▼
 User sees a fully personalized response
 ```
+
+---
+
+## Cost Benchmarks
+
+Measured with API-verified token counts (Gemini tokenizer) across real-world prompts at 50% compression target.
+
+### Average: 44% token reduction
+
+| Test Case | Original | After Proxy | Saved | Reduction |
+|---|---:|---:|---:|---:|
+| Healthcare Chat (PII-heavy) | 369 | 193 | 176 | 48% |
+| Legal Document Review | 715 | 402 | 313 | 44% |
+| Tech Architecture Review | 464 | 281 | 183 | 39% |
+| Medical Research Analysis | 621 | 341 | 280 | 45% |
+| Code Review (Python) | 1,636 | 899 | 737 | 45% |
+
+### Annual savings at scale
+
+| LLM Engine | Input Price | 10K req/day | 100K req/day | 1M req/day |
+|---|---:|---:|---:|---:|
+| GPT-4o-mini | $0.15/1M | $185 | $1,845 | $18,451 |
+| Claude Haiku 4.5 | $0.80/1M | $984 | $9,840 | $98,404 |
+| GPT-4o | $2.50/1M | $3,075 | $30,751 | $307,512 |
+| Claude Sonnet 4 | $3.00/1M | $3,690 | $36,902 | $369,015 |
+| OpenAI o3 | $10.00/1M | $12,301 | $123,005 | $1,230,050 |
+| Claude Opus 4 | $15.00/1M | $18,451 | $184,508 | $1,845,075 |
+
+> Run it yourself: `cd cost-benchmark && GEMINI_API_KEY=your_key swift run CostBenchmark`
 
 ---
 
@@ -357,35 +388,6 @@ val proxy = MelangeLmProxy.build(context) {
 ```
 
 Stages run in insertion order for requests and reverse order for responses.
-
----
-
-## Cost Benchmarks
-
-Measured with API-verified token counts (Gemini tokenizer) across real-world prompts at 50% compression target.
-
-### Average: 44% token reduction
-
-| Test Case | Original | After Proxy | Saved | Reduction |
-|---|---:|---:|---:|---:|
-| Healthcare Chat (PII-heavy) | 369 | 193 | 176 | 48% |
-| Legal Document Review | 715 | 402 | 313 | 44% |
-| Tech Architecture Review | 464 | 281 | 183 | 39% |
-| Medical Research Analysis | 621 | 341 | 280 | 45% |
-| Code Review (Python) | 1,636 | 899 | 737 | 45% |
-
-### Annual savings at scale
-
-| LLM Engine | Input Price | 10K req/day | 100K req/day | 1M req/day |
-|---|---:|---:|---:|---:|
-| GPT-4o-mini | $0.15/1M | $185 | $1,845 | $18,451 |
-| Claude Haiku 4.5 | $0.80/1M | $984 | $9,840 | $98,404 |
-| GPT-4o | $2.50/1M | $3,075 | $30,751 | $307,512 |
-| Claude Sonnet 4 | $3.00/1M | $3,690 | $36,902 | $369,015 |
-| OpenAI o3 | $10.00/1M | $12,301 | $123,005 | $1,230,050 |
-| Claude Opus 4 | $15.00/1M | $18,451 | $184,508 | $1,845,075 |
-
-> Run it yourself: `cd cost-benchmark && GEMINI_API_KEY=your_key swift run CostBenchmark`
 
 ---
 
