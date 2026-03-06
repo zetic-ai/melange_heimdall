@@ -1,0 +1,36 @@
+name: ZeticMLangeProxyDemo
+options:
+  bundleIdPrefix: com.zeticai.melangelm
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+
+packages:
+  MelangeLmProxy:
+    path: ../proxy-ios
+
+targets:
+  ZeticMLangeProxyDemo:
+    type: application
+    platform: iOS
+    sources:
+      - ZeticMLangeProxyDemo
+    resources:
+      - path: ZeticMLangeProxyDemo/Assets.xcassets
+      - path: ZeticMLangeProxyDemo/prompt_guard_tokenizer.json
+      - path: ZeticMLangeProxyDemo/anonymizer_tokenizer.json
+      - path: ZeticMLangeProxyDemo/labels.json
+    dependencies:
+      - package: MelangeLmProxy
+        product: MelangeLmProxy
+      - sdk: Accelerate.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zeticai.melangelm.demo
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Melange Proxy Demo
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
+        SWIFT_VERSION: "5.9"
+        DEVELOPMENT_TEAM: ""

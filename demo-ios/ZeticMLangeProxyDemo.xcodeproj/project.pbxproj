@@ -1,0 +1,381 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13D8C1E7F2AC5884B3E51335 /* anonymizer_tokenizer.json in Resources */ = {isa = PBXBuildFile; fileRef = 44BF79856BD053EB02058CD6 /* anonymizer_tokenizer.json */; };
+		163C13ED3FAA7CC273110483 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711182603B2D8CFA2F2EEB11 /* DemoApp.swift */; };
+		3B4DA38690598043FEBA7D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEB4305749EE0AF1D675BBD /* Assets.xcassets */; };
+		3CB9C82995ADB00559A5D7D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923E456E6032D0F8AF3FEC1A /* ContentView.swift */; };
+		451530829D89F9A32B3B777D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DE934A64B4EDA27FF0E956 /* Accelerate.framework */; };
+		57D5FA0F05E9C6370D9CDF3D /* prompt_guard_tokenizer.json in Resources */ = {isa = PBXBuildFile; fileRef = 76E6DABE9983D09B749A33CB /* prompt_guard_tokenizer.json */; };
+		5C21F28455733740EDDAC3FF /* MelangeLmProxy in Frameworks */ = {isa = PBXBuildFile; productRef = F33659044329F4C119B1F33B /* MelangeLmProxy */; };
+		63594DAC12895FF364ABD27D /* DemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503838E9F6C6D2C81C9E1C29 /* DemoViewModel.swift */; };
+		F5F75C08EA7A67EEBCD5E583 /* labels.json in Resources */ = {isa = PBXBuildFile; fileRef = 129A557761505C408B0A07CE /* labels.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		129A557761505C408B0A07CE /* labels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labels.json; sourceTree = "<group>"; };
+		44BF79856BD053EB02058CD6 /* anonymizer_tokenizer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = anonymizer_tokenizer.json; sourceTree = "<group>"; };
+		503838E9F6C6D2C81C9E1C29 /* DemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewModel.swift; sourceTree = "<group>"; };
+		69DE934A64B4EDA27FF0E956 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		711182603B2D8CFA2F2EEB11 /* DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
+		76E6DABE9983D09B749A33CB /* prompt_guard_tokenizer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = prompt_guard_tokenizer.json; sourceTree = "<group>"; };
+		812D47F4C3103EE60962D7CB /* proxy-ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "proxy-ios"; path = "../proxy-ios"; sourceTree = SOURCE_ROOT; };
+		923E456E6032D0F8AF3FEC1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BDEB4305749EE0AF1D675BBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB7EA6C64BB73196FFC56604 /* ZeticMLangeProxyDemo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ZeticMLangeProxyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A46A8EAE27BFBB5D9A8DC788 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C21F28455733740EDDAC3FF /* MelangeLmProxy in Frameworks */,
+				451530829D89F9A32B3B777D /* Accelerate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		426BF1135BA63D37CA6C20EA = {
+			isa = PBXGroup;
+			children = (
+				998F2C86D7AF668BEC158DA5 /* Packages */,
+				B09E8736169CF90754B1FAF7 /* ZeticMLangeProxyDemo */,
+				9F67CE4B76C741B2B58B75F7 /* Frameworks */,
+				430AF43D35BE1F1F4751E3FC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		430AF43D35BE1F1F4751E3FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB7EA6C64BB73196FFC56604 /* ZeticMLangeProxyDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		998F2C86D7AF668BEC158DA5 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				812D47F4C3103EE60962D7CB /* proxy-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		9F67CE4B76C741B2B58B75F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69DE934A64B4EDA27FF0E956 /* Accelerate.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B09E8736169CF90754B1FAF7 /* ZeticMLangeProxyDemo */ = {
+			isa = PBXGroup;
+			children = (
+				44BF79856BD053EB02058CD6 /* anonymizer_tokenizer.json */,
+				BDEB4305749EE0AF1D675BBD /* Assets.xcassets */,
+				923E456E6032D0F8AF3FEC1A /* ContentView.swift */,
+				711182603B2D8CFA2F2EEB11 /* DemoApp.swift */,
+				503838E9F6C6D2C81C9E1C29 /* DemoViewModel.swift */,
+				129A557761505C408B0A07CE /* labels.json */,
+				76E6DABE9983D09B749A33CB /* prompt_guard_tokenizer.json */,
+			);
+			path = ZeticMLangeProxyDemo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		46CAD91BBB7A8A95B647AADA /* ZeticMLangeProxyDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E29D83DDB8DDD958F90AE3A /* Build configuration list for PBXNativeTarget "ZeticMLangeProxyDemo" */;
+			buildPhases = (
+				497EAB61ACF23D9CC7F8B16A /* Sources */,
+				E0E8F92BB07C1E5157B1E648 /* Resources */,
+				A46A8EAE27BFBB5D9A8DC788 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZeticMLangeProxyDemo;
+			packageProductDependencies = (
+				F33659044329F4C119B1F33B /* MelangeLmProxy */,
+			);
+			productName = ZeticMLangeProxyDemo;
+			productReference = DB7EA6C64BB73196FFC56604 /* ZeticMLangeProxyDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2732B5542EF856FE09084422 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					46CAD91BBB7A8A95B647AADA = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 0849971AA037C09FB193407A /* Build configuration list for PBXProject "ZeticMLangeProxyDemo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 426BF1135BA63D37CA6C20EA;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DF2BF894F270988DDF7F653D /* XCLocalSwiftPackageReference "../proxy-ios" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				46CAD91BBB7A8A95B647AADA /* ZeticMLangeProxyDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E0E8F92BB07C1E5157B1E648 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B4DA38690598043FEBA7D01 /* Assets.xcassets in Resources */,
+				13D8C1E7F2AC5884B3E51335 /* anonymizer_tokenizer.json in Resources */,
+				F5F75C08EA7A67EEBCD5E583 /* labels.json in Resources */,
+				57D5FA0F05E9C6370D9CDF3D /* prompt_guard_tokenizer.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		497EAB61ACF23D9CC7F8B16A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CB9C82995ADB00559A5D7D8 /* ContentView.swift in Sources */,
+				163C13ED3FAA7CC273110483 /* DemoApp.swift in Sources */,
+				63594DAC12895FF364ABD27D /* DemoViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		36B92F69841E9220308DB67F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Melange Proxy Demo";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zeticai.melangelm.demo;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5C8220674614C1D6338C1769 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6317FAE8980068C4C9680D2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Melange Proxy Demo";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zeticai.melangelm.demo;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9E11FEC440AD1B591C9BD624 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0849971AA037C09FB193407A /* Build configuration list for PBXProject "ZeticMLangeProxyDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E11FEC440AD1B591C9BD624 /* Debug */,
+				5C8220674614C1D6338C1769 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3E29D83DDB8DDD958F90AE3A /* Build configuration list for PBXNativeTarget "ZeticMLangeProxyDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36B92F69841E9220308DB67F /* Debug */,
+				6317FAE8980068C4C9680D2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		DF2BF894F270988DDF7F653D /* XCLocalSwiftPackageReference "../proxy-ios" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../proxy-ios";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F33659044329F4C119B1F33B /* MelangeLmProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MelangeLmProxy;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 2732B5542EF856FE09084422 /* Project object */;
+}
