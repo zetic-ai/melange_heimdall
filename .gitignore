@@ -9,6 +9,7 @@ xcuserdata/
 local.properties
 *.apk
 *.aab
+*.hprof
 app/build/
 build/
 .gradle/
