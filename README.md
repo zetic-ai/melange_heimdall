@@ -7,7 +7,7 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Platform: Android](https://img.shields.io/badge/Platform-Android-green.svg)]()
 [![Platform: iOS](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)]()
-[![Powered by Zetic Melange](https://img.shields.io/badge/Powered%20by-Zetic%20Melange-teal.svg)](https://zetic.ai)
+[![Powered by Zetic Melange](https://img.shields.io/badge/Powered%20by-Zetic%20Melange-teal.svg)](https://melange.zetic.ai)
 
 </div>
 
