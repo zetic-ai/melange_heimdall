@@ -2,7 +2,7 @@
 
 # Melange Heimdall
 
-**An on-device guardian for LLM API calls — safety, privacy, and cost optimization that never leaves the phone.**
+**On-device guardian for LLM API calls: safety, privacy, and cost optimization that never leaves the phone.**
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Platform: Android](https://img.shields.io/badge/Platform-Android-green.svg)]()
@@ -19,7 +19,7 @@
 |---|---|---|
 | **Concept** | Why on-device? The Heimdall metaphor and design rationale | [The Idea](#the-idea) · [Why On-Device Matters](#why-on-device-matters) |
 | **Architecture** | Pipeline pattern, parallel init, protocol-oriented stages | [Architecture](#architecture) |
-| **How Each Stage Works** | PromptGuard, TextAnonymizer, Summarizer — internals and key decisions | [Implementation Details](#implementation-details) |
+| **How Each Stage Works** | PromptGuard, TextAnonymizer, Summarizer internals and key decisions | [Implementation Details](#implementation-details) |
 | **Before & After** | Side-by-side: what the LLM sees with vs. without Heimdall | [What It Looks Like in Practice](#what-it-looks-like-in-practice) |
 | **Code** | Drop-in integration for Android (Kotlin) and iOS (Swift) | [Quickstart](#quickstart) · [Custom Pipeline Stages](#custom-pipeline-stages) |
 | **Benchmarks** | 44% avg token reduction, annual savings by LLM engine | [Cost Benchmarks](#cost-benchmarks) |
@@ -30,13 +30,13 @@
 
 ## The Idea
 
-In Norse mythology, **Heimdall** stands at the Bifrost bridge — the only passage between realms — watching everything that crosses. Nothing passes without his scrutiny.
+In Norse mythology, **Heimdall** stands at the Bifrost bridge, the only passage between realms, watching everything that crosses. Nothing passes without his scrutiny.
 
 This project applies the same concept to LLM API calls. Every prompt your app sends to an LLM crosses a bridge from the user's device to a cloud provider. Melange Heimdall stands at that bridge and does three things before anything crosses:
 
-1. **Guards** — blocks prompt injections and jailbreaks on-device
-2. **Anonymizes** — strips PII (names, emails, SSNs, card numbers) and restores them in the response
-3. **Compresses** — summarizes long prompts to cut token costs by ~44%
+1. **Guards** - blocks prompt injections and jailbreaks on-device
+2. **Anonymizes** - strips PII (names, emails, SSNs, card numbers) and restores them in the response
+3. **Compresses** - summarizes long prompts to cut token costs by ~44%
 
 All three run as on-device ML models. No cloud round-trips for safety. No PII ever leaves the device. The upstream LLM only sees a clean, anonymized, compressed prompt.
 
@@ -44,20 +44,20 @@ All three run as on-device ML models. No cloud round-trips for safety. No PII ev
 User's message
     │
     ▼
-┌──────────────────────────────────────────────┐
-│              Melange Heimdall                  │
+┌────────────────────────────────────────────────┐
+│             Melange Heimdall                   │
 │                                                │
-│  PromptGuard ──→ Anonymizer ──→ Summarizer    │  all on-device
+│  PromptGuard ──→ Anonymizer ──→ Summarizer     │  all on-device
 │                                                │
-└──────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
     │  clean, anonymized, compressed
     ▼
-Upstream LLM  (OpenAI · Gemini · Claude · any)
+Upstream LLM  (OpenAI / Gemini / Claude / any)
     │  response
     ▼
-┌──────────────────────────────────────────────┐
-│  De-anonymize  (restore original PII)         │  on-device
-└──────────────────────────────────────────────┘
+┌────────────────────────────────────────────────┐
+│  De-anonymize  (restore original PII)          │  on-device
+└────────────────────────────────────────────────┘
     │
     ▼
 User sees a fully personalized response
@@ -67,13 +67,13 @@ User sees a fully personalized response
 
 ## Why On-Device Matters
 
-Most LLM safety and privacy solutions are cloud services — you send your prompt to a moderation API, wait for the result, then send it to the LLM. This has three problems:
+Most LLM safety and privacy solutions are cloud services. You send your prompt to a moderation API, wait for the result, then send it to the LLM. This has three problems:
 
 1. **The PII still leaves the device.** Even if you redact PII before calling the LLM, you had to send it to a cloud NER service first. That defeats the purpose.
 2. **Latency adds up.** A cloud moderation call adds 100-500ms per request. At scale, this is noticeable.
 3. **Cost on cost.** You're paying for the safety API call *in addition to* the LLM call.
 
-Heimdall runs all three models on the device's neural engine / CPU. The PII never touches a network. The safety check adds <50ms, not 300ms. And the on-device inference is free — you already own the hardware.
+Heimdall runs all three models on the device's neural engine / CPU. The PII never touches a network. The safety check adds <50ms, not 300ms. And the on-device inference is free since you already own the hardware.
 
 ---
 
@@ -105,7 +105,7 @@ processResponse (reverse order):
   PromptGuard.processResponse()   → (no-op)
 ```
 
-The reverse order on response is intentional — the last stage to modify the request is the first to see the response. This lets the anonymizer restore PII that the LLM returned as placeholders.
+The reverse order on response is intentional. The last stage to modify the request is the first to see the response. This lets the anonymizer restore PII that the LLM returned as placeholders.
 
 ### Parallel Initialization
 
@@ -134,7 +134,7 @@ The tokenizer is a SentencePiece/RoBERTa-style greedy tokenizer loaded from `tok
 
 - Only the **last user message** is checked, not the full history. This prevents a single flagged message from blocking all subsequent messages in the conversation.
 - The malicious threshold is configurable. Default is 0 (block whenever malicious logit > benign logit). Raise it to reduce false positives.
-- If the model fails to load, the stage is a no-op — fail open, not closed. This is a design choice for UX; in production you might prefer fail-closed.
+- If the model fails to load, the stage is a no-op (fail open, not closed). This is a design choice for UX; in production you might prefer fail-closed.
 
 **Files:**
 - Android: `proxy-android/.../stages/PromptGuardStage.kt`
@@ -152,12 +152,12 @@ The pipeline:
 
 1. **Tokenize** the user message using a greedy BPE tokenizer (loaded from `anonymizer_tokenizer.json`).
 2. **Chunk** long inputs into overlapping windows of 128 tokens (126 content + BOS/EOS). Overlap of 10 tokens ensures entities at chunk boundaries aren't split.
-3. **Run inference** per chunk — the model outputs logits of shape `[1, seq_len, num_classes]`.
-4. **Softmax + confidence threshold** — only accept non-O predictions above 95% confidence. This dramatically reduces false positives (e.g., common words being tagged as PERSON).
+3. **Run inference** per chunk. The model outputs logits of shape `[1, seq_len, num_classes]`.
+4. **Softmax + confidence threshold** - only accept non-O predictions above 95% confidence. This dramatically reduces false positives (e.g., common words being tagged as PERSON).
 5. **Merge predictions** across chunks, preferring the non-overlapping region of each chunk.
-6. **Build anonymized text** — consecutive tokens with the same entity type are grouped into a single placeholder (`[Person]`, `[Email]`, etc.). Very short entities (<2 chars) or purely numeric ones are rejected.
-7. **Regex fallback** — SSN (`\d{3}-\d{2}-\d{4}`), email, and credit card patterns are caught by regex even if the NER model misses them.
-8. **Store mapping** — `{"[Person]": "Sarah Chen", "[Email]": "sarah@example.com"}` is saved in the request metadata for response restoration.
+6. **Build anonymized text** - consecutive tokens with the same entity type are grouped into a single placeholder (`[Person]`, `[Email]`, etc.). Very short entities (<2 chars) or purely numeric ones are rejected.
+7. **Regex fallback** - SSN (`\d{3}-\d{2}-\d{4}`), email, and credit card patterns are caught by regex even if the NER model misses them.
+8. **Store mapping** - `{"[Person]": "Sarah Chen", "[Email]": "sarah@example.com"}` is saved in the request metadata for response restoration.
 
 **On response:** The reverse pass replaces every `[Person]`, `[Email]`, etc. in the LLM's reply with the original values from the mapping.
 
@@ -186,7 +186,7 @@ Rules:
 - If the message contains code, keep key code structure and remove only redundant parts.
 - If the message contains data or examples, keep representative samples.
 - Preserve names, numbers, and specific technical terms.
-Output only the compressed message — no preamble, no explanation.
+Output only the compressed message, no preamble, no explanation.
 
 User message:
 {the actual message}
@@ -272,7 +272,7 @@ val proxy = MelangeLmProxy.build(context) {
 // Initialize once (downloads & loads on-device models)
 lifecycleScope.launch { proxy.initialize() }
 
-// Chat — safety, privacy, and compression happen automatically
+// Chat - safety, privacy, and compression happen automatically
 val result = proxy.chat(messages = listOf(
     ChatMessage("user", "My name is Alice, alice@example.com. What's 2+2?")
 ))
@@ -322,10 +322,10 @@ case .failure(let msg, _):
 // All three stages
 val proxy = MelangeLmProxy.allFeatures(context, zeticKey, apiKey = apiKey)
 
-// Safety only — no compression
+// Safety only, no compression
 val proxy = MelangeLmProxy.safetyOnly(context, zeticKey, apiKey = apiKey)
 
-// Cost only — no safety/privacy
+// Cost only, no safety/privacy
 val proxy = MelangeLmProxy.costOptimized(context, zeticKey, apiKey = apiKey)
 
 // Wrap your existing HTTP client
@@ -429,35 +429,35 @@ melange-heimdall/
 
 ### Step 1: Get a Zetic Melange Personal Key
 
-The on-device models are hosted and served via **[Zetic Melange](https://zetic.ai)** — an on-device AI model deployment platform. You need a personal key to download the models to your device.
+The on-device models are hosted and served via **[Zetic Melange](https://zetic.ai)**, an on-device AI model deployment platform. You need a personal key to download the models to your device.
 
 1. Go to [**zetic.ai**](https://zetic.ai) and create a free account
 2. Once logged in, go to **Settings → Access Keys** in the dashboard
 3. Click **Generate New Key** and copy your **Personal Access Key**
 4. It looks like `dev_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
-The key is used only to authenticate model downloads — all inference happens entirely on-device after the models are cached locally. First launch downloads the models (~5 seconds); subsequent launches load from cache instantly.
+The key is used only to authenticate model downloads. All inference happens entirely on-device after the models are cached locally. First launch downloads the models (~5 seconds); subsequent launches load from cache instantly.
 
 ### Step 2: Set Up Your Keys
 
-**Android** — create/edit `demo-android/local.properties`:
+**Android** - create/edit `demo-android/local.properties`:
 
 ```properties
-# Required — sign up at https://zetic.ai and generate your personal key
+# Required - sign up at https://zetic.ai and generate your personal key
 ZETIC_PERSONAL_KEY=dev_your_key_here
 
-# Optional — OpenAI API key for upstream LLM calls
+# Optional - OpenAI API key for upstream LLM calls
 # Without this, the app runs in pipeline-only mode (still demonstrates all on-device stages)
 OPENAI_API_KEY=sk-your_key_here
 
-# Optional — use any OpenAI-compatible endpoint
+# Optional - use any OpenAI-compatible endpoint
 OPENAI_BASE_URL=https://api.openai.com
 OPENAI_MODEL=gpt-4o-mini
 ```
 
-> `local.properties` is gitignored — your keys stay local and are never committed.
+> `local.properties` is gitignored. Your keys stay local and are never committed.
 
-**iOS** — set environment variables in your Xcode scheme (Product → Scheme → Edit Scheme → Run → Arguments → Environment Variables):
+**iOS** - set environment variables in your Xcode scheme (Product → Scheme → Edit Scheme → Run → Arguments → Environment Variables):
 
 | Variable | Value | Required |
 |---|---|---|
@@ -494,9 +494,9 @@ GEMINI_API_KEY=your_key swift run CostBenchmark
 
 ## Roadmap
 
-- [x] PromptGuard — Llama Prompt Guard 2 on-device classification
-- [x] TextAnonymizer — NER PII redaction with response restoration
-- [x] Summarizer — LFM2-2.6B on-device prompt compression
+- [x] PromptGuard - Llama Prompt Guard 2 on-device classification
+- [x] TextAnonymizer - NER PII redaction with response restoration
+- [x] Summarizer - LFM2-2.6B on-device prompt compression
 - [x] Per-request savings tracking (`ProxySavings`)
 - [x] OpenAI-compatible upstream (OkHttp / URLSession)
 - [x] Android + iOS libraries with builder DSL
