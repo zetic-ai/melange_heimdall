@@ -1,0 +1,27 @@
+# IDE
+.idea/
+*.iml
+.DS_Store
+xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Android
+local.properties
+*.apk
+*.aab
+app/build/
+build/
+.gradle/
+
+# iOS
+DerivedData/
+.build/
+*.ipa
+Pods/
+
+# Keys & secrets
+*.keystore
+*.jks
+
+# Reference apps (private, not part of this repo)
+second-party/
