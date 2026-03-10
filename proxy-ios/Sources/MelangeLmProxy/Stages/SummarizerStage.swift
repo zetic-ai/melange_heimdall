@@ -100,7 +100,9 @@ public final class SummarizerStage: PipelineStage, @unchecked Sendable {
         _ = try m.run(prompt)
 
         var outputTokens: [String] = []
-        while true {
+        // Cap output tokens: ~4 chars per token, target = original * ratio
+        let maxTokens = max(32, min(512, Int(Double(text.count) * compressionTargetRatio / 4.0)))
+        while outputTokens.count < maxTokens {
             let result = m.waitForNextToken()
             if result.isFinished { break }
             outputTokens.append(result.token)
@@ -113,15 +115,8 @@ public final class SummarizerStage: PipelineStage, @unchecked Sendable {
     private func buildSummarizationPrompt(_ text: String) -> String {
         let targetPct = Int(compressionTargetRatio * 100)
         return """
-        Compress the following user message to approximately \(targetPct)% of its original length. \
-        Rules: \
-        - Keep the user's core question or request intact. \
-        - If the message contains code, keep the key code structure (class/function signatures, logic) and remove only redundant or boilerplate parts. Do NOT remove all code. \
-        - If the message contains data or examples, keep representative samples. \
-        - Preserve names, numbers, and specific technical terms. \
-        Output only the compressed message — no preamble, no explanation.
+        Compress to ~\(targetPct)% length. Keep core question, names, numbers, code structure. Output only the compressed message.
 
-        User message:
         \(text)
 
         Compressed:

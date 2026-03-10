@@ -29,7 +29,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.zeticai.melangelm.demo
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_CFBundleDisplayName: Melange Proxy Demo
+        INFOPLIST_KEY_CFBundleDisplayName: Melange Heimdall
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
         SWIFT_VERSION: "5.9"

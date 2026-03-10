@@ -265,7 +265,7 @@ final class DemoViewModel: ObservableObject {
     }
     @Published var showSettings = false
 
-    private let zeticPersonalKey = ProcessInfo.processInfo.environment["ZETIC_PERSONAL_KEY"] ?? "YOUR_MLANGE_KEY"
+    private let zeticPersonalKey = ProcessInfo.processInfo.environment["ZETIC_PERSONAL_KEY"] ?? "ztp_7d769523cecf4a2792997c40f4162334"
 
     private var proxy: MelangeLmProxy!
     private static let hasLaunchedKey = "melange_demo_has_launched"

@@ -77,7 +77,7 @@ struct ContentView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "shield.checkered")
                         .foregroundStyle(zeticTeal)
-                    Text("Melange LM Proxy")
+                    Text("Melange Heimdall")
                         .font(.headline)
                 }
                 Text(vm.initStatus)

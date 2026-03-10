@@ -34,8 +34,11 @@ actor ProxyPipeline {
     func initialize(
         onStageReady: ((String) -> Void)? = nil,
         onStageProgress: ((String, Float) -> Void)? = nil
-    ) async {
+    ) async throws {
         guard !initialized else { return }
+
+        let errorCollector = ErrorCollector()
+
         await withTaskGroup(of: Void.self) { group in
             for stage in stages {
                 group.addTask {
@@ -46,17 +49,25 @@ actor ProxyPipeline {
                         try await stage.initialize(onProgress: progressForStage)
                         onStageReady?(stage.name)
                     } catch {
-                        // logged below
+                        await errorCollector.add(stage: stage.name, error: error)
                     }
                 }
             }
         }
+
+        let errors = await errorCollector.errors
+        if !errors.isEmpty {
+            let msg = errors.map { "\($0.stage): \($0.error.localizedDescription)" }.joined(separator: "; ")
+            log("Pipeline init failed: \(msg)", level: .error)
+            throw InitializationError.stagesFailed(msg)
+        }
+
         initialized = true
         log("Pipeline ready with \(stages.count) stage(s): \(stages.map(\.name).joined(separator: ", "))")
     }
 
     func process(_ chatRequest: ChatRequest) async -> ProxyResult {
-        if !initialized { await initialize() }
+        if !initialized { try? await initialize() }
 
         let request = ProxyRequest(originalRequest: chatRequest)
 
@@ -99,7 +110,7 @@ actor ProxyPipeline {
     /// Run only the on-device pipeline stages (no upstream call).
     /// Returns the processed request so the caller can inspect what each stage did.
     func processOnly(_ chatRequest: ChatRequest) async -> PipelineOnlyResult {
-        if !initialized { await initialize() }
+        if !initialized { try? await initialize() }
 
         let request = ProxyRequest(originalRequest: chatRequest)
 
@@ -137,6 +148,24 @@ actor ProxyPipeline {
             processedMessages: request.messages,
             stageResults: stageResults
         )
+    }
+
+    // MARK: - Error collection for parallel init
+
+    private actor ErrorCollector {
+        struct Entry { let stage: String; let error: Error }
+        private(set) var errors: [Entry] = []
+        func add(stage: String, error: Error) { errors.append(Entry(stage: stage, error: error)) }
+    }
+
+    enum InitializationError: LocalizedError {
+        case stagesFailed(String)
+
+        var errorDescription: String? {
+            switch self {
+            case .stagesFailed(let msg): return "Model initialization failed: \(msg)"
+            }
+        }
     }
 
     // MARK: - Logging
