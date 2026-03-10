@@ -243,6 +243,11 @@ The model generates tokens autoregressively (`run()` then `waitForNextToken()` i
 
 ## What It Looks Like in Practice
 
+<div align="center">
+  <img src="assets/heimdall_ios.gif" alt="Heimdall iOS Demo" width="250">
+</div>
+<br>
+
 Your user types:
 
 > _"Hi, I'm Sarah Chen (SSN 123-45-6789). My cardiologist Dr. James Wilson at Mount Sinai (james.wilson@mountsinai.org) told me to track my chest pain symptoms since Tuesday. Can you help me understand when I should go to the ER vs urgent care?"_
@@ -429,44 +434,27 @@ melange-heimdall/
 
 ## Getting Started
 
-### Step 1: Get a Zetic Melange Personal Key
+### Step 1: Get a Melange Personal Key
 
-The on-device models are hosted and served via **[Zetic Melange](https://zetic.ai)**, an on-device AI model deployment platform. You need a personal key to download the models to your device.
+The on-device models are hosted via **[Melange](https://melange.zetic.ai)**, an on-device AI model deployment platform. You need a personal key to download the models.
 
-1. Go to [**zetic.ai**](https://zetic.ai) and create a free account
-2. Once logged in, go to **Settings → Access Keys** in the dashboard
-3. Click **Generate New Key** and copy your **Personal Access Key**
-4. It looks like `dev_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+1. Go to [**melange.zetic.ai**](https://melange.zetic.ai) and create a free account
+2. Navigate to **Settings > Personal Access Token**
+3. Generate and copy your token (starts with `dev_`)
 
-The key is used only to authenticate model downloads. All inference happens entirely on-device after the models are cached locally. First launch downloads the models (~5 seconds); subsequent launches load from cache instantly.
+### Step 2: Run the Setup Script
 
-### Step 2: Set Up Your Keys
-
-**Android** - create/edit `demo-android/local.properties`:
-
-```properties
-# Required - sign up at https://zetic.ai and generate your personal key
-ZETIC_PERSONAL_KEY=dev_your_key_here
-
-# Optional - OpenAI API key for upstream LLM calls
-# Without this, the app runs in pipeline-only mode (still demonstrates all on-device stages)
-OPENAI_API_KEY=sk-your_key_here
-
-# Optional - use any OpenAI-compatible endpoint
-OPENAI_BASE_URL=https://api.openai.com
-OPENAI_MODEL=gpt-4o-mini
+```bash
+./setup.sh
 ```
 
-> `local.properties` is gitignored. Your keys stay local and are never committed.
+The script prompts for your Melange Personal Key and configures both platforms:
+- **Android**: writes `demo-android/local.properties` (gitignored)
+- **iOS**: patches the key into `DemoViewModel.swift`
 
-**iOS** - set environment variables in your Xcode scheme (Product → Scheme → Edit Scheme → Run → Arguments → Environment Variables):
+To restore placeholders before committing: `./setup.sh --restore`
 
-| Variable | Value | Required |
-|---|---|---|
-| `ZETIC_PERSONAL_KEY` | `dev_your_key_here` | Yes |
-| `OPENAI_API_KEY` | `sk-your_key_here` | No (pipeline-only mode without it) |
-| `OPENAI_BASE_URL` | `https://api.openai.com` | No |
-| `OPENAI_MODEL` | `gpt-4o-mini` | No |
+The key is used only to authenticate model downloads. All inference happens entirely on-device after the models are cached locally.
 
 ### Step 3: Build and Run
 
