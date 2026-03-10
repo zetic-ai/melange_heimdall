@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.zeticai.melangelm.pipeline.PipelineStage
 import com.zeticai.melangelm.pipeline.ProxyRequest
+import com.zeticai.mlange.core.model.ModelMode
 import com.zeticai.mlange.core.model.ZeticMLangeModel
 import com.zeticai.mlange.core.tensor.DataType
 import com.zeticai.mlange.core.tensor.Tensor
@@ -15,7 +16,7 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 private const val TAG = "PromptGuardStage"
-private const val MODEL_ID = "jathin-zetic/llama_prompt_guard_2"
+private const val MODEL_ID = "jathin-zetic/llama_prompt_guard"
 private const val SEQ_LEN = 128
 
 /**
@@ -44,10 +45,7 @@ class PromptGuardStage(
     override suspend fun initialize(onProgress: ((Float) -> Unit)?) {
         withContext(Dispatchers.IO) {
             tokenizer.ensureLoaded()
-            val wrappedProgress: ((Float) -> Unit)? = onProgress?.let { cb ->
-                { p: Float -> Log.d(TAG, "onProgress: $p"); cb(p) }
-            }
-            model = ZeticMLangeModel(context.applicationContext, personalKey, MODEL_ID, null, onProgress = wrappedProgress)
+            model = ZeticMLangeModel(context.applicationContext, personalKey, MODEL_ID, version = 2, modelMode = ModelMode.RUN_SPEED, onProgress = onProgress)
             Log.i(TAG, "PromptGuard model loaded. Tokenizer ready=${tokenizer.isLoaded}")
         }
     }

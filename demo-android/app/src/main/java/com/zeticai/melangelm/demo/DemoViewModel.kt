@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import android.util.Log
 import kotlinx.coroutines.launch
 
 data class Message(
@@ -295,7 +294,6 @@ class DemoViewModel(app: Application) : AndroidViewModel(app) {
                             }
                         },
                         onStageProgress = { stageName, progress ->
-                            Log.d("DemoViewModel", "onStageProgress: stage=$stageName progress=$progress")
                             _uiState.update { state ->
                                 state.copy(
                                     loadingSteps = state.loadingSteps.map { step ->

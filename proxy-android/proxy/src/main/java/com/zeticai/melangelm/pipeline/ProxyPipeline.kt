@@ -41,6 +41,7 @@ class ProxyPipeline(
         onStageProgress: ((String, Float) -> Unit)? = null
     ) {
         if (initialized) return
+        val errors = mutableListOf<Pair<String, Throwable>>()
         coroutineScope {
             stages.map { stage ->
                 async(Dispatchers.IO) {
@@ -50,9 +51,17 @@ class ProxyPipeline(
                     }
                     runCatching { stage.initialize(progressForStage) }
                         .onSuccess { onStageReady?.invoke(stage.name) }
-                        .onFailure { Log.e(TAG, "Stage ${stage.name} init failed", it) }
+                        .onFailure { e ->
+                            Log.e(TAG, "Stage ${stage.name} init failed", e)
+                            synchronized(errors) { errors.add(stage.name to e) }
+                        }
                 }
             }.awaitAll()
+        }
+        if (errors.isNotEmpty()) {
+            val msg = errors.joinToString("; ") { "${it.first}: ${it.second.message}" }
+            Log.e(TAG, "Pipeline init failed: $msg")
+            throw RuntimeException("Model initialization failed: $msg", errors.first().second)
         }
         initialized = true
         Log.i(TAG, "Pipeline initialized with ${stages.size} stage(s): ${stages.map { it.name }}")

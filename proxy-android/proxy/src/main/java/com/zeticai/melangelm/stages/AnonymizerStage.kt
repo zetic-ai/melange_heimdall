@@ -63,10 +63,7 @@ class AnonymizerStage(
         withContext(Dispatchers.IO) {
             tokenizer = AnonymizerTokenizer(context)
             id2label = loadLabels()
-            val wrappedProgress: ((Float) -> Unit)? = onProgress?.let { cb ->
-                { p: Float -> Log.d(TAG, "onProgress: $p"); cb(p) }
-            }
-            model = ZeticMLangeModel(context.applicationContext, personalKey, MODEL_ID, null, onProgress = wrappedProgress)
+            model = ZeticMLangeModel(context.applicationContext, personalKey, MODEL_ID, null, onProgress = onProgress)
             Log.i(TAG, "Anonymizer model loaded. Labels: ${id2label.size}")
         }
     }

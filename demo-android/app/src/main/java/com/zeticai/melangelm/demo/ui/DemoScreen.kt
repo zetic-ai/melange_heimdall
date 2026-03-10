@@ -154,7 +154,7 @@ private fun TopBar(uiState: DemoUiState, onClear: () -> Unit, onShowSettings: ()
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     Icon(Icons.Default.Shield, contentDescription = null, tint = Teal, modifier = Modifier.size(18.dp))
-                    Text("Melange LM Proxy", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text("Melange Heimdall", fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
                 Text(
                     uiState.initStatus,

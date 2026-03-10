@@ -57,9 +57,6 @@ class SummarizerStage(
 
     override suspend fun initialize(onProgress: ((Float) -> Unit)?) {
         withContext(Dispatchers.IO) {
-            val wrappedProgress: ((Float) -> Unit)? = onProgress?.let { cb ->
-                { p: Float -> Log.d(TAG, "onProgress: $p"); cb(p) }
-            }
             model = ZeticMLangeLLMModel(
                 context.applicationContext,
                 personalKey,
@@ -67,7 +64,7 @@ class SummarizerStage(
                 null,
                 llmTarget.toSdkTarget(),
                 llmQuantType.toSdkQuantType(),
-                onProgress = wrappedProgress
+                onProgress = onProgress
             )
             Log.i(TAG, "Summarizer LLM model loaded: $modelId")
         }
@@ -112,10 +109,14 @@ class SummarizerStage(
         val prompt = buildPrompt(text)
         m.run(prompt)
         val tokens = StringBuilder()
-        while (true) {
+        // Cap output tokens: ~4 chars per token, target = original * ratio
+        val maxTokens = ((text.length * compressionTargetRatio) / 4).toInt().coerceIn(32, 512)
+        var tokenCount = 0
+        while (tokenCount < maxTokens) {
             val result = m.waitForNextToken()
             if (result.token.isEmpty()) break
             tokens.append(result.token)
+            tokenCount++
         }
         // Clear KV cache after generation so the next run starts fresh
         runCatching { m.cleanUp() }
@@ -125,15 +126,8 @@ class SummarizerStage(
     private fun buildPrompt(text: String): String {
         val targetPct = (compressionTargetRatio * 100).toInt()
         return """
-            Compress the following user message to approximately $targetPct% of its original length.
-            Rules:
-            - Keep the user's core question or request intact.
-            - If the message contains code, keep the key code structure (class/function signatures, logic) and remove only redundant or boilerplate parts. Do NOT remove all code.
-            - If the message contains data or examples, keep representative samples.
-            - Preserve names, numbers, and specific technical terms.
-            Output only the compressed message — no preamble, no explanation.
+            Compress to ~$targetPct% length. Keep core question, names, numbers, code structure. Output only the compressed message.
 
-            User message:
             $text
 
             Compressed:
